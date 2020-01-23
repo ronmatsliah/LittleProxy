@@ -94,6 +94,12 @@ abstract class ProxyConnection<I extends HttpObject> extends
         this.runsAsSslClient = runsAsSslClient;
     }
 
+    private void updateLastReadTime() {
+        long tmpLastReadTime = lastReadTime;
+        lastReadTime = System.currentTimeMillis();
+        LOG.debug(ProxyConnection.this, "Updating read timeout in {} from {} to {}", this, tmpLastReadTime, lastReadTime);
+    }
+
     /* *************************************************************************
      * Reading
      **************************************************************************/
@@ -104,11 +110,7 @@ abstract class ProxyConnection<I extends HttpObject> extends
     protected void read(Object msg) {
         LOG.debug(ProxyConnection.this, "Reading: {}", msg);
 
-
-        long tmpLastReadTime = lastReadTime;
-        lastReadTime = System.currentTimeMillis();
-        LOG.debug(ProxyConnection.this, "Updating read timeout in {} from {} to {} when reading message {}", this, tmpLastReadTime, lastReadTime, msg);
-
+        updateLastReadTime();
 
         if (tunneling) {
             // In tunneling mode, this connection is simply shoveling bytes
@@ -578,7 +580,7 @@ abstract class ProxyConnection<I extends HttpObject> extends
         try {
             LOG.info(this, "Channel inactive called");
             disconnected();
-            lastReadTime = System.currentTimeMillis();
+            updateLastReadTime();
         } finally {
             super.channelInactive(ctx);
         }
@@ -794,5 +796,6 @@ abstract class ProxyConnection<I extends HttpObject> extends
 
         protected abstract void responseWritten(HttpResponse httpResponse);
     }
+
 
 }
