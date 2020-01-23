@@ -46,9 +46,21 @@ class ProxyConnectionLogger {
         }
     }
 
+    protected void error(Object instance, String message, Object... params) {
+        if (logger.isErrorEnabled()) {
+            dispatch.doLog(LocationAwareLogger.ERROR_INT, message + " in " + instance, params, null);
+        }
+    }
+
     protected void error(String message, Throwable t) {
         if (logger.isErrorEnabled()) {
             dispatch.doLog(LocationAwareLogger.ERROR_INT, message, null, t);
+        }
+    }
+
+    protected void error(Object instance, String message, Throwable t) {
+        if (logger.isErrorEnabled()) {
+            dispatch.doLog(LocationAwareLogger.ERROR_INT, message + " in " + instance, null, t);
         }
     }
 
@@ -58,9 +70,21 @@ class ProxyConnectionLogger {
         }
     }
 
+    protected void warn(Object instance, String message, Object... params) {
+        if (logger.isWarnEnabled()) {
+            dispatch.doLog(LocationAwareLogger.WARN_INT, message + " in " + instance, params, null);
+        }
+    }
+
     protected void warn(String message, Throwable t) {
         if (logger.isWarnEnabled()) {
             dispatch.doLog(LocationAwareLogger.WARN_INT, message, null, t);
+        }
+    }
+
+    protected void warn(Object instance, String message, Throwable t) {
+        if (logger.isWarnEnabled()) {
+            dispatch.doLog(LocationAwareLogger.WARN_INT, message + " in " + instance, null, t);
         }
     }
 
@@ -70,9 +94,21 @@ class ProxyConnectionLogger {
         }
     }
 
+    protected void info(Object instance, String message, Object... params) {
+        if (logger.isInfoEnabled()) {
+            dispatch.doLog(LocationAwareLogger.INFO_INT, message + " in " + instance, params, null);
+        }
+    }
+
     protected void info(String message, Throwable t) {
         if (logger.isInfoEnabled()) {
             dispatch.doLog(LocationAwareLogger.INFO_INT, message, null, t);
+        }
+    }
+
+    protected void info(Object instance, String message, Throwable t) {
+        if (logger.isInfoEnabled()) {
+            dispatch.doLog(LocationAwareLogger.INFO_INT, message + " in " + instance, null, t);
         }
     }
 
@@ -82,9 +118,21 @@ class ProxyConnectionLogger {
         }
     }
 
+    protected void debug(Object instance, String message, Object... params) {
+        if (logger.isDebugEnabled()) {
+            dispatch.doLog(LocationAwareLogger.DEBUG_INT, message + " in " + instance, params, null);
+        }
+    }
+
     protected void debug(String message, Throwable t) {
         if (logger.isDebugEnabled()) {
             dispatch.doLog(LocationAwareLogger.DEBUG_INT, message, null, t);
+        }
+    }
+
+    protected void debug(Object instance, String message, Throwable t) {
+        if (logger.isDebugEnabled()) {
+            dispatch.doLog(LocationAwareLogger.DEBUG_INT, message + " in " + instance, null, t);
         }
     }
 
